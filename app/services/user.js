@@ -14,7 +14,7 @@ export default function UserService() {
                     res
                         .status(500)
                         .send({message: err});
-                    console.log('회원가입 실패')
+                    console.log(` 회원가입 실패 ${err}`)
                     return;
                 } else {
                     res
@@ -66,12 +66,11 @@ export default function UserService() {
                                 .send({message:'FAIL'});
                         } else {
                             user.generateToken((err, user) => {
-                                if (err) 
+                                if (err) {
                                     res
-                                        .status(400)
-                                        .send(err)
-
-                                    // 토큰을 저장한다. 어디에? 쿠키, 로컬스토리지
+                                    .status(400)
+                                    .send(err)
+                                }
                                 res
                                     .status(200)
                                     .json(user)
@@ -106,6 +105,7 @@ export default function UserService() {
                 }) */
         },
         logout() {
+            console.log(`서버 로그아웃 `);
             req.logout();
             res.json({success: true, msg: '로그아웃'});
 
